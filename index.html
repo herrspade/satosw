@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<title>SATOW</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+
+body {text-align: center}
+
+</style>
+
+<body>
+
+<h2 class="w3-center">SATOW</h2>
+Konvertera din deltagarlista från SailArena för import till sailWave
+
+<br>
+<input type="file" name="inputfile" id="inputfile">
+<br>
+
+<!-- <button type="button" id="btnSave" onclick="save()">SAVE</button> -->
+
+<pre id="output"></pre>
+
+<script type="text/javascript">
+    document.getElementById('inputfile')
+        .addEventListener('change', function() {
+
+        var fr=new FileReader();
+        fr.onload=function(){
+            var data =fr.result;
+            data = data.replace(/[,"]/g, '');
+            data = data.replace(/[;]/g, ',');
+            var dataArray = data.split("\n");
+
+            var newData = [];
+            //var tmpLine;
+            dataArray.forEach((line) => {
+                var t=0;
+                line = line.replace(/,/g, function (match) {
+                    t++;
+                    return (t === 2) ? " " : match;
+                });
+                newData.push(line);
+            });
+
+            newData = newData.join()
+            var c = document.createElement("a");
+            c.download = "sailwave-import.csv";
+
+            var t = new Blob([newData], {
+            type: "text/plain"
+            });
+            c.href = window.URL.createObjectURL(t);
+            c.click();
+
+        }
+
+        fr.readAsText(this.files[0], 'ISO-8859-1');
+    })
+
+
+// function save() {
+//     var data = document.getElementById("txtData").value;
+//     var c = document.createElement("a");
+//     c.download = "user-text.txt";
+
+//     var t = new Blob([data], {
+//     type: "text/plain"
+//     });
+//     c.href = window.URL.createObjectURL(t);
+//     c.click();
+//     }
+</script>
+
+<!-- function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+  }
+
+  // Start file download.
+  download("hello.txt","This is the content of my file :)");
+ -->
+
+
+
+
+</body>
+</html>
