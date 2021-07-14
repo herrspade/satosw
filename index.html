@@ -52,6 +52,17 @@ Konvertera din deltagarlista från SailArena för import till sailWave
             newData = newData.replace(/ +,/g, ',');
             newData = newData.replace(/, +/g, ',');
 
+            var lineArray = [];
+            lineArray = newData.split('\n');
+            for (var i = 0; i < lineArray.length;i++){
+                var nth = 0;
+                lineArray[i] = lineArray[i].replace(/,/g, function (match, i, original) {
+                    nth++;
+                    return (nth === 2) ? " " : match;
+                    });
+            }
+            newData = lineArray.join('\n')
+
             var c = document.createElement("a");
             c.download = "sailwave-import.csv";
 
