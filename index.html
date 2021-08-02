@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>SATOW</title>
+<title>SAtoSW</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style>
@@ -11,8 +11,8 @@ body {text-align: center}
 
 <body>
 
-<h2 class="w3-center">SATOW</h2>
-Konvertera din deltagarlista från SailArena för import till sailWave
+<h2 class="w3-center">SAtoSW</h2>
+Konvertera din deltagarlista från SailArena för import till SailWave
 
 <br>
 <input type="file" name="inputfile" id="inputfile">
@@ -31,6 +31,7 @@ Konvertera din deltagarlista från SailArena för import till sailWave
             var data =fr.result;
             var between = false;
             var newData ="";
+            // Clean out new line tokens within double quotes
             for (var i = 0; i < data.length; i++) {
                 // look for "
                 if(data[i] == '"'){
@@ -41,19 +42,31 @@ Konvertera din deltagarlista från SailArena för import till sailWave
                     }
                 } else {
                     if(between && ((data[i] == '\r') || (data[i] == '\n'))){
-                        // skipp
+                        if (data[i] == '\n'){
+                            // put a space instead of newline
+                            newData += ' ';
+                        }
                     } else {
                         newData += data[i];
                     }
                 }
             }
-            newData = newData.replace(/[,]/g, '');
-            newData = newData.replace(/[;]/g, ',');
-            newData = newData.replace(/ +,/g, ',');
-            newData = newData.replace(/, +/g, ',');
-
+            newData = newData.replace(/[,]/g, ' '); // replace ',' with space
+            newData = newData.replace(/[;]/g, ','); // replace ';' with ','
+            newData = newData.replace(/ +,/g, ','); // remove space before ','
+            newData = newData.replace(/, +/g, ','); // remove space after ','
+            // Split data to an array of lines
             var lineArray = [];
             lineArray = newData.split('\n');
+
+            var crewTabHead = "crew" + lineArray[0].split(',').join(",crew");
+            var nth = 0;
+            crewTabHead = crewTabHead.replace(/,/g, function (match, i, original) {
+                    nth++;
+                    return (nth === 2) ? " " : match;
+                    });
+            var emptyCrew = ",".repeat(crewTabHead.split(',').length);
+            // Merge Förnamn and Efternamn
             for (var i = 0; i < lineArray.length;i++){
                 var nth = 0;
                 lineArray[i] = lineArray[i].replace(/,/g, function (match, i, original) {
@@ -61,7 +74,50 @@ Konvertera din deltagarlista från SailArena för import till sailWave
                     return (nth === 2) ? " " : match;
                     });
             }
-            newData = lineArray.join('\n')
+
+            var newLineArray = [];
+            newLineArray[0] = lineArray[0].trim() + "," + crewTabHead;
+            var n = 1;
+            for (i = 1; i < lineArray.length;i++){
+                if(i < (lineArray.length - 1)) {
+                    if(lineArray[i].split(',')[0] == lineArray[i+1].split(',')[0]){
+                        // found crew line
+                        newLineArray[n] = lineArray[i].trim() + "," + lineArray[i+1];
+                        i++;
+                    } else {
+                        // regular line
+                        newLineArray[n] = lineArray[i].trim() + "," + emptyCrew;
+                    }
+                } else {
+                    newLineArray[n] = lineArray[i].trim() + "," + emptyCrew;
+                }
+                n++;
+            }
+            newData = newLineArray.join('\n')
+
+            newData = newData.replace(/,crewFörnamn crewEfternamn/g, ",CrewName");
+            newData = newData.replace(/,crewSailarena ID/g, ",CrewId");
+            newData = newData.replace(/,crewE-post/g, ",CrewEmail");
+            newData = newData.replace(/,crewTelefon/g, ",CrewPhone");
+            newData = newData.replace(/,crewFödelseår/g, ",CrewAgeGroup");
+            newData = newData.replace(/,crewKontaktperson 1 vid nödfall/g, ",CrewNotes");
+
+            newData = newData.replace(/Anmälan/g, "HelmMemberNo");
+            newData = newData.replace(/,Förnamn Efternamn/g, ",HelmName");
+            newData = newData.replace(/,Sailarena ID/g, ",HelmId");
+            newData = newData.replace(/,E-post/g, ",HelmEmail");
+            newData = newData.replace(/,Telefon/g, ",HelmPhone");
+            newData = newData.replace(/,Födelseår/g, ",HelmAgeGroup");
+            newData = newData.replace(/,Kontaktperson 1 vid nödfall/g, ",HelmNotes");
+            newData = newData.replace(/,Klubb/g, ",Club");
+            newData = newData.replace(/,Båttyp/g, ",Group");
+            newData = newData.replace(/,Nationsbeteckning/g, ",Nat");
+            newData = newData.replace(/,Segelnummer/g, ",SailNo");
+            newData = newData.replace(/,Tävling\/klass/g, ",Class");
+            newData = newData.replace(/,Status/g, ",Paid");
+            newData = newData.replace(/,Tävlingslicens/g, ",Fee");
+            newData = newData.replace(/,Anmäld/g, ",Alias");
+
 
             var c = document.createElement("a");
             c.download = "sailwave-import.csv";
