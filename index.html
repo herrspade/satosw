@@ -1,171 +1,177 @@
 <!DOCTYPE html>
 <html>
-<title>SAtoSW</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<style>
+  <title>SAtoSW</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+  <style>
+    body {
+      text-align: center;
+    }
+  </style>
 
-body {text-align: center}
+  <body>
+    <h2 class="w3-center">SAtoSW</h2>
+    Konvertera din deltagarlista från SailArena för import till SailWave
 
-</style>
+    <br />
+    <input type="file" name="inputfile" id="inputfile" />
+    <br />
 
-<body>
+    <!-- <button type="button" id="btnSave" onclick="save()">SAVE</button> -->
 
-<h2 class="w3-center">SAtoSW</h2>
-Konvertera din deltagarlista från SailArena för import till SailWave
+    <pre id="output"></pre>
 
-<br>
-<input type="file" name="inputfile" id="inputfile">
-<br>
-
-<!-- <button type="button" id="btnSave" onclick="save()">SAVE</button> -->
-
-<pre id="output"></pre>
-
-<script type="text/javascript">
-    document.getElementById('inputfile')
-        .addEventListener('change', function() {
-
-        var fr=new FileReader();
-        fr.onload=function(){
-            var data =fr.result;
-            var between = false;
-            var newData ="";
-            // Clean out new line tokens within double quotes
-            for (var i = 0; i < data.length; i++) {
-                // look for "
-                if(data[i] == '"'){
-                    if(between){
-                        between = false;
-                    } else {
-                        between = true;
-                    }
-                } else {
-                    if(between && ((data[i] == '\r') || (data[i] == '\n'))){
-                        if (data[i] == '\n'){
-                            // put a space instead of newline
-                            newData += ' ';
-                        }
-                    } else {
-                        newData += data[i];
-                    }
+    <script type="text/javascript">
+      document.getElementById("inputfile").addEventListener("change", function () {
+        var fr = new FileReader();
+        fr.onload = function () {
+          var data = fr.result;
+          var between = false;
+          var workStrAllProp = "";
+          // Clean out new line tokens within double quotes
+          for (var i = 0; i < data.length; i++) {
+            // look for "
+            if (data[i] == '"') {
+              if (between) {
+                between = false;
+              } else {
+                between = true;
+              }
+            } else {
+              if (between && (data[i] == "\r" || data[i] == "\n")) {
+                if (data[i] == "\n") {
+                  // put a space instead of newline
+                  workStrAllProp += " ";
                 }
+              } else {
+                workStrAllProp += data[i];
+              }
             }
-            newData = newData.replace(/[,]/g, ' '); // replace ',' with space
-            newData = newData.replace(/[;]/g, ','); // replace ';' with ','
-            newData = newData.replace(/ +,/g, ','); // remove space before ','
-            newData = newData.replace(/, +/g, ','); // remove space after ','
-            // Split data to an array of lines
-            var lineArray = [];
-            lineArray = newData.split('\n');
+          }
+          workStrAllProp = workStrAllProp.replace(/[,]/g, " "); // replace ',' with space
+          workStrAllProp = workStrAllProp.replace(/[;]/g, ","); // replace ';' with ','
+          workStrAllProp = workStrAllProp.replace(/ +,/g, ","); // remove space before ','
+          workStrAllProp = workStrAllProp.replace(/, +/g, ","); // remove space after ','
+          // Split data to an array of lines
+          var inputLineArray = [];
+          inputLineArray = workStrAllProp.split("\n");
+          // Remove empty array elements
+          inputLineArray = inputLineArray.filter(function (e) {
+            return e === 0 || e;
+          });
 
-            var crewTabHead = "crew" + lineArray[0].split(',').join(",crew");
+          var crewTabHead = "crew" + inputLineArray[0].split(",").join(",crew");
+          var nth = 0;
+          crewTabHead = crewTabHead.replace(/,/g, function (match, i, original) {
+            nth++;
+            return nth === 2 ? " " : match;
+          });
+          var emptyCrew = ",".repeat(crewTabHead.split(",").length);
+          // Merge Förnamn and Efternamn
+          for (var i = 0; i < inputLineArray.length; i++) {
             var nth = 0;
-            crewTabHead = crewTabHead.replace(/,/g, function (match, i, original) {
-                    nth++;
-                    return (nth === 2) ? " " : match;
-                    });
-            var emptyCrew = ",".repeat(crewTabHead.split(',').length);
-            // Merge Förnamn and Efternamn
-            for (var i = 0; i < lineArray.length;i++){
-                var nth = 0;
-                lineArray[i] = lineArray[i].replace(/,/g, function (match, i, original) {
-                    nth++;
-                    return (nth === 2) ? " " : match;
-                    });
-            }
-
-            var newLineArray = [];
-            newLineArray[0] = lineArray[0].trim() + "," + crewTabHead;
-            var n = 1;
-            for (i = 1; i < lineArray.length;i++){
-                if(i < (lineArray.length - 1)) {
-                    if(lineArray[i].split(',')[0] == lineArray[i+1].split(',')[0]){
-                        // found crew line
-                        newLineArray[n] = lineArray[i].trim() + "," + lineArray[i+1];
-                        i++;
-                    } else {
-                        // regular line
-                        newLineArray[n] = lineArray[i].trim() + "," + emptyCrew;
-                    }
-                } else {
-                    newLineArray[n] = lineArray[i].trim() + "," + emptyCrew;
-                }
-                n++;
-            }
-            newData = newLineArray.join('\n')
-
-            newData = newData.replace(/,crewFörnamn crewEfternamn/g, ",CrewName");
-            newData = newData.replace(/,crewSailarena ID/g, ",CrewId");
-            newData = newData.replace(/,crewE-post/g, ",CrewEmail");
-            newData = newData.replace(/,crewTelefon/g, ",CrewPhone");
-            newData = newData.replace(/,crewFödelseår/g, ",CrewAgeGroup");
-            newData = newData.replace(/,crewKontaktperson 1 vid nödfall/g, ",CrewNotes");
-
-            newData = newData.replace(/Anmälan/g, "HelmMemberNo");
-            newData = newData.replace(/,Förnamn Efternamn/g, ",HelmName");
-            newData = newData.replace(/,Sailarena ID/g, ",HelmId");
-            newData = newData.replace(/,E-post/g, ",HelmEmail");
-            newData = newData.replace(/,Telefon/g, ",HelmPhone");
-            newData = newData.replace(/,Födelseår/g, ",HelmAgeGroup");
-            newData = newData.replace(/,Kontaktperson 1 vid nödfall/g, ",HelmNotes");
-            newData = newData.replace(/,Klubb/g, ",Club");
-            newData = newData.replace(/,Båttyp/g, ",Group");
-            newData = newData.replace(/,Nationsbeteckning/g, ",Nat");
-            newData = newData.replace(/,Segelnummer/g, ",SailNo");
-            newData = newData.replace(/,Tävling\/klass/g, ",Class");
-            newData = newData.replace(/,Status/g, ",Paid");
-            newData = newData.replace(/,Tävlingslicens/g, ",Fee");
-            newData = newData.replace(/,Anmäld/g, ",Alias");
-
-
-            var c = document.createElement("a");
-            c.download = "sailwave-import.csv";
-
-            var t = new Blob([newData], {
-            type: "text/plain"
+            inputLineArray[i] = inputLineArray[i].replace(/,/g, function (match, i, original) {
+              nth++;
+              return nth === 2 ? " " : match;
             });
-            c.href = window.URL.createObjectURL(t);
-            c.click();
+          }
 
-        }
+          var helmCrewLines = [];
+          helmCrewLines[0] = inputLineArray[0].trim() + "," + crewTabHead;
+          var n = 1;
+          for (i = 1; i < inputLineArray.length; i++) {
+            if (i < inputLineArray.length - 1) {
+              if (inputLineArray[i].split(",")[0] == inputLineArray[i + 1].split(",")[0]) {
+                // found crew line
+                helmCrewLines[n] = inputLineArray[i].trim() + "," + inputLineArray[i + 1];
+                i++;
+              } else {
+                // regular line
+                helmCrewLines[n] = inputLineArray[i].trim() + "," + emptyCrew;
+              }
+            } else {
+              helmCrewLines[n] = inputLineArray[i].trim() + "," + emptyCrew;
+            }
+            n++;
+          }
 
-        fr.readAsText(this.files[0], 'ISO-8859-1');
-    })
+          helmCrewLines[0] = helmCrewLines[0].replace(/Anmälan/g, "HelmMemberNo");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Förnamn Efternamn/g, ",HelmName");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Sailarena ID/g, ",HelmId");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,E-post/g, ",HelmEmail");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Telefon/g, ",HelmPhone");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Födelseår/g, ",HelmAgeGroup");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Kontaktperson 1 vid nödfall/g, ",HelmNotes");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Klubb/g, ",Club");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Båttyp/g, ",Group");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Nationsbeteckning/g, ",Nat");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Segelnummer/g, ",SailNo");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Tävling\/klass/g, ",Class");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Status/g, ",Paid");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Tävlingslicens/g, ",Fee");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Anmäld/g, ",Notes");
 
+          helmCrewLines[0] = helmCrewLines[0].replace(/,crewFörnamn crewEfternamn/g, ",CrewName");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,crewSailarena ID/g, ",CrewId");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,crewE-post/g, ",CrewEmail");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,crewTelefon/g, ",CrewPhone");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,crewFödelseår/g, ",CrewAgeGroup");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,crewKontaktperson 1 vid nödfall/g, ",CrewNotes");
 
-// function save() {
-//     var data = document.getElementById("txtData").value;
-//     var c = document.createElement("a");
-//     c.download = "user-text.txt";
+          const outFields = [
+            "HelmMemberNo",
+            "HelmName",
+            "HelmId",
+            "HelmEmail",
+            "HelmPhone",
+            "HelmAgeGroup",
+            "HelmNotes",
+            "Club",
+            "Group",
+            "Nat",
+            "SailNo",
+            "Class",
+            "Paid",
+            "Fee",
+            "Notes",
+            "CrewName",
+            "CrewId",
+            "CrewEmail",
+            "CrewPhone",
+            "CrewAgeGroup",
+            "CrewNotes",
+          ];
 
-//     var t = new Blob([data], {
-//     type: "text/plain"
-//     });
-//     c.href = window.URL.createObjectURL(t);
-//     c.click();
-//     }
-</script>
+          var sailWaveOutputLines = [];
 
-<!-- function download(filename, text) {
-    var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-    element.setAttribute('download', filename);
+          for (field of outFields) {
+            fieldIndex = helmCrewLines[0].split(",").indexOf(field);
+            if (fieldIndex >= 0) {
+              for (var line = 0; line < helmCrewLines.length; line++) {
+                if (field == "HelmMemberNo") {
+                  sailWaveOutputLines[line] = helmCrewLines[line].split(",")[fieldIndex];
+                } else {
+                  sailWaveOutputLines[line] =
+                    sailWaveOutputLines[line] + "," + helmCrewLines[line].split(",")[fieldIndex];
+                }
+              }
+            }
+          }
 
-    element.style.display = 'none';
-    document.body.appendChild(element);
+          sailWaveOutput = sailWaveOutputLines.join("\n");
 
-    element.click();
+          var c = document.createElement("a");
+          c.download = "sailwave-import.csv";
 
-    document.body.removeChild(element);
-  }
+          var t = new Blob([sailWaveOutput], {
+            type: "text/plain",
+          });
+          c.href = window.URL.createObjectURL(t);
+          c.click();
+        };
 
-  // Start file download.
-  download("hello.txt","This is the content of my file :)");
- -->
-
-
-
-
-</body>
+        fr.readAsText(this.files[0], "ISO-8859-1");
+      });
+    </script>
+  </body>
 </html>
