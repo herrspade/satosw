@@ -94,7 +94,7 @@
             }
             n++;
           }
-
+          // Change from Sailarena to SailWave field names
           helmCrewLines[0] = helmCrewLines[0].replace(/Anmälan/g, "HelmMemberNo");
           helmCrewLines[0] = helmCrewLines[0].replace(/,Förnamn Efternamn/g, ",HelmName");
           helmCrewLines[0] = helmCrewLines[0].replace(/,Sailarena ID/g, ",HelmId");
@@ -118,7 +118,8 @@
           helmCrewLines[0] = helmCrewLines[0].replace(/,crewFödelseår/g, ",CrewAgeGroup");
           helmCrewLines[0] = helmCrewLines[0].replace(/,crewKontaktperson 1 vid nödfall/g, ",CrewNotes");
 
-          const outFields = [
+          // Fields of interest for SailWave
+          const sailWaveOutputFields = [
             "HelmMemberNo",
             "HelmName",
             "HelmId",
@@ -143,21 +144,31 @@
           ];
 
           var sailWaveOutputLines = [];
-
-          for (field of outFields) {
+          // Build an output line array only containing the fields of intreset for SailWave
+          for (field of sailWaveOutputFields) {
             fieldIndex = helmCrewLines[0].split(",").indexOf(field);
             if (fieldIndex >= 0) {
               for (var line = 0; line < helmCrewLines.length; line++) {
                 if (field == "HelmMemberNo") {
+                    // Add first field to output lines
                   sailWaveOutputLines[line] = helmCrewLines[line].split(",")[fieldIndex];
+                } else if (field == "HelmEmail" || field == "CrewEmail") {
+                    // All emails should be lowercase
+                  sailWaveOutputLines[line] =
+                    sailWaveOutputLines[line] + "," + helmCrewLines[line].split(",")[fieldIndex].toLowerCase();
+                } else if (field == "Nat" || field == "Club") {
+                  // All clubs 2020 use uppercase letters in their club abbrevation (except BiKSS, BåSS and SökBK)
+                  sailWaveOutputLines[line] =
+                    sailWaveOutputLines[line] + "," + helmCrewLines[line].split(",")[fieldIndex].toUpperCase();
                 } else {
+                    // All other fields
                   sailWaveOutputLines[line] =
                     sailWaveOutputLines[line] + "," + helmCrewLines[line].split(",")[fieldIndex];
                 }
               }
             }
           }
-
+          // Join all lines to one string with new lines.
           sailWaveOutput = sailWaveOutputLines.join("\n");
 
           var c = document.createElement("a");
