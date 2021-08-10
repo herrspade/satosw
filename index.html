@@ -170,6 +170,9 @@
           }
           // Join all lines to one string with new lines.
           sailWaveOutput = sailWaveOutputLines.join("\n");
+          // Laser class name repalcement
+          sailWaveOutput = sailWaveOutput.replace(/Laser Radial/g, "ILCA 6");
+          sailWaveOutput = sailWaveOutput.replace(/Laser 4.7/g, "ILCA 4");
 
           var c = document.createElement("a");
           c.download = "sailwave-import.csv";
