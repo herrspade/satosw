@@ -158,384 +158,320 @@
         125: 125,
         126: 126,
         127: 127,
-        8364:128,
-        129:129,
-        8218:130,
-        402:131,
-        8222:132,
-        8230:133,
-        8224:134,
-        8225:135,
-        710:136,
-        8240:137,
-        352:138,
-        8249:139,
-        338:140,
-        141:141,
-        381:142,
-        143:143,
-        144:144,
-        8216:145,
-        8217:146,
-        8220:147,
-        8221:148,
-        8226:149,
-        8211:150,
-        8212:151,
-        732:152,
-        8482:153,
-        353:154,
-        8250:155,
-        339:156,
-        157:157,
-        382:158,
-        376:159,
-        160:160,
-        161:161,
-        162:162,
-        163:163,
-        164:164,
-        165:165,
-        166:166,
-        167:167,
-        168:168,
-        169:169,
-        170:170,
-        171:171,
-        172:172,
-        173:173,
-        174:174,
-        175:175,
-        176:176,
-        177:177,
-        178:178,
-        179:179,
-        180:180,
-        181:181,
-        182:182,
-        183:183,
-        184:184,
-        185:185,
-        186:186,
-        187:187,
-        188:188,
-        189:189,
-        190:190,
-        191:191,
-        192:192,
-        193:193,
-        194:194,
-        195:195,
-        196:196,
-        197:197,
-        198:198,
-        199:199,
-        200:200,
-        201:201,
-        202:202,
-        203:203,
-        204:204,
-        205:205,
-        206:206,
-        207:207,
-        208:208,
-        209:209,
-        210:210,
-        211:211,
-        212:212,
-        213:213,
-        214:214,
-        215:215,
-        216:216,
-        217:217,
-        218:218,
-        219:219,
-        220:220,
-        221:221,
-        222:222,
-        223:223,
-        224:224,
-        225:225,
-        226:226,
-        227:227,
-        228:228,
-        229:229,
-        230:230,
-        231:231,
-        232:232,
-        233:233,
-        234:234,
-        235:235,
-        236:236,
-        237:237,
-        238:238,
-        239:239,
-        240:240,
-        241:241,
-        242:242,
-        243:243,
-        244:244,
-        245:245,
-        246:246,
-        247:247,
-        248:248,
-        249:249,
-        250:250,
-        251:251,
-        252:252,
-        253:253,
-        254:254,
-        255:255
+        8364: 128,
+        129: 129,
+        8218: 130,
+        402: 131,
+        8222: 132,
+        8230: 133,
+        8224: 134,
+        8225: 135,
+        710: 136,
+        8240: 137,
+        352: 138,
+        8249: 139,
+        338: 140,
+        141: 141,
+        381: 142,
+        143: 143,
+        144: 144,
+        8216: 145,
+        8217: 146,
+        8220: 147,
+        8221: 148,
+        8226: 149,
+        8211: 150,
+        8212: 151,
+        732: 152,
+        8482: 153,
+        353: 154,
+        8250: 155,
+        339: 156,
+        157: 157,
+        382: 158,
+        376: 159,
+        160: 160,
+        161: 161,
+        162: 162,
+        163: 163,
+        164: 164,
+        165: 165,
+        166: 166,
+        167: 167,
+        168: 168,
+        169: 169,
+        170: 170,
+        171: 171,
+        172: 172,
+        173: 173,
+        174: 174,
+        175: 175,
+        176: 176,
+        177: 177,
+        178: 178,
+        179: 179,
+        180: 180,
+        181: 181,
+        182: 182,
+        183: 183,
+        184: 184,
+        185: 185,
+        186: 186,
+        187: 187,
+        188: 188,
+        189: 189,
+        190: 190,
+        191: 191,
+        192: 192,
+        193: 193,
+        194: 194,
+        195: 195,
+        196: 196,
+        197: 197,
+        198: 198,
+        199: 199,
+        200: 200,
+        201: 201,
+        202: 202,
+        203: 203,
+        204: 204,
+        205: 205,
+        206: 206,
+        207: 207,
+        208: 208,
+        209: 209,
+        210: 210,
+        211: 211,
+        212: 212,
+        213: 213,
+        214: 214,
+        215: 215,
+        216: 216,
+        217: 217,
+        218: 218,
+        219: 219,
+        220: 220,
+        221: 221,
+        222: 222,
+        223: 223,
+        224: 224,
+        225: 225,
+        226: 226,
+        227: 227,
+        228: 228,
+        229: 229,
+        230: 230,
+        231: 231,
+        232: 232,
+        233: 233,
+        234: 234,
+        235: 235,
+        236: 236,
+        237: 237,
+        238: 238,
+        239: 239,
+        240: 240,
+        241: 241,
+        242: 242,
+        243: 243,
+        244: 244,
+        245: 245,
+        246: 246,
+        247: 247,
+        248: 248,
+        249: 249,
+        250: 250,
+        251: 251,
+        252: 252,
+        253: 253,
+        254: 254,
+        255: 255,
       };
 
-      function unicodeToWin1252(s) {
-        var L = new Uint8Array();
-        for (var i = 0; i < s.length; i++) {
-          var ord = s.charCodeAt(i);
-          if (!(ord in DMap))
-            throw "Character " + s.charAt(i) + " isn't supported by win1251!";
-          L.appendByte(String.fromCharCode(DMap[ord]));
-        }
-        return L.join("");
-      }
-      document
-        .getElementById("inputfile")
-        .addEventListener("change", function () {
-          var fr = new FileReader();
-          fr.onload = function () {
-            var data = fr.result;
-            var between = false;
-            var workStrAllProp = "";
-            // Clean out new line tokens within double quotes
-            for (var i = 0; i < data.length; i++) {
-              // look for "
-              if (data[i] == '"') {
-                if (between) {
-                  between = false;
-                } else {
-                  between = true;
+      document.getElementById("inputfile").addEventListener("change", function () {
+        var fr = new FileReader();
+        fr.onload = function () {
+          var data = fr.result;
+          var between = false;
+          var workStrAllProp = "";
+          // Clean out new line tokens within double quotes
+          for (var i = 0; i < data.length; i++) {
+            // look for "
+            if (data[i] == '"') {
+              if (between) {
+                between = false;
+              } else {
+                between = true;
+              }
+            } else {
+              if (between && (data[i] == "\r" || data[i] == "\n")) {
+                if (data[i] == "\n") {
+                  // put a space instead of newline
+                  workStrAllProp += " ";
                 }
               } else {
-                if (between && (data[i] == "\r" || data[i] == "\n")) {
-                  if (data[i] == "\n") {
-                    // put a space instead of newline
-                    workStrAllProp += " ";
-                  }
-                } else {
-                  workStrAllProp += data[i];
-                }
+                workStrAllProp += data[i];
               }
             }
-            workStrAllProp = workStrAllProp.replace(/[,]/g, " "); // replace ',' with space
-            workStrAllProp = workStrAllProp.replace(/[;]/g, ","); // replace ';' with ','
-            workStrAllProp = workStrAllProp.replace(/ +,/g, ","); // remove space before ','
-            workStrAllProp = workStrAllProp.replace(/, +/g, ","); // remove space after ','
-            // Split data to an array of lines
-            var inputLineArray = [];
-            inputLineArray = workStrAllProp.split("\n");
-            // Remove empty array elements
-            inputLineArray = inputLineArray.filter(function (e) {
-              return e === 0 || e;
-            });
+          }
+          workStrAllProp = workStrAllProp.replace(/[,]/g, " "); // replace ',' with space
+          workStrAllProp = workStrAllProp.replace(/[;]/g, ","); // replace ';' with ','
+          workStrAllProp = workStrAllProp.replace(/ +,/g, ","); // remove space before ','
+          workStrAllProp = workStrAllProp.replace(/, +/g, ","); // remove space after ','
+          // Split data to an array of lines
+          var inputLineArray = [];
+          inputLineArray = workStrAllProp.split("\n");
+          // Remove empty array elements
+          inputLineArray = inputLineArray.filter(function (e) {
+            return e === 0 || e;
+          });
 
-            var crewTabHead =
-              "crew" + inputLineArray[0].split(",").join(",crew");
+          var crewTabHead = "crew" + inputLineArray[0].split(",").join(",crew");
+          var nth = 0;
+          crewTabHead = crewTabHead.replace(/,/g, function (match, i, original) {
+            nth++;
+            return nth === 2 ? " " : match;
+          });
+          var emptyCrew = ",".repeat(crewTabHead.split(",").length);
+          // Merge Förnamn and Efternamn
+          for (var i = 0; i < inputLineArray.length; i++) {
             var nth = 0;
-            crewTabHead = crewTabHead.replace(
-              /,/g,
-              function (match, i, original) {
-                nth++;
-                return nth === 2 ? " " : match;
-              }
-            );
-            var emptyCrew = ",".repeat(crewTabHead.split(",").length);
-            // Merge Förnamn and Efternamn
-            for (var i = 0; i < inputLineArray.length; i++) {
-              var nth = 0;
-              inputLineArray[i] = inputLineArray[i].replace(
-                /,/g,
-                function (match, i, original) {
-                  nth++;
-                  return nth === 2 ? " " : match;
-                }
-              );
-            }
+            inputLineArray[i] = inputLineArray[i].replace(/,/g, function (match, i, original) {
+              nth++;
+              return nth === 2 ? " " : match;
+            });
+          }
 
-            var helmCrewLines = [];
-            helmCrewLines[0] = inputLineArray[0].trim() + "," + crewTabHead;
-            var n = 1;
-            for (i = 1; i < inputLineArray.length; i++) {
-              if (i < inputLineArray.length - 1) {
-                if (
-                  inputLineArray[i].split(",")[0] ==
-                  inputLineArray[i + 1].split(",")[0]
-                ) {
-                  // found crew line
-                  helmCrewLines[n] =
-                    inputLineArray[i].trim() + "," + inputLineArray[i + 1];
-                  i++;
-                } else {
-                  // regular line
-                  helmCrewLines[n] = inputLineArray[i].trim() + "," + emptyCrew;
-                }
+          var helmCrewLines = [];
+          helmCrewLines[0] = inputLineArray[0].trim() + "," + crewTabHead;
+          var n = 1;
+          for (i = 1; i < inputLineArray.length; i++) {
+            if (i < inputLineArray.length - 1) {
+              if (inputLineArray[i].split(",")[0] == inputLineArray[i + 1].split(",")[0]) {
+                // found crew line
+                helmCrewLines[n] = inputLineArray[i].trim() + "," + inputLineArray[i + 1];
+                i++;
               } else {
+                // regular line
                 helmCrewLines[n] = inputLineArray[i].trim() + "," + emptyCrew;
               }
-              n++;
+            } else {
+              helmCrewLines[n] = inputLineArray[i].trim() + "," + emptyCrew;
             }
-            // Change from Sailarena to SailWave field names
-            helmCrewLines[0] = helmCrewLines[0].replace(
-              /Anmälan/g,
-              "HelmMemberNo"
-            );
-            helmCrewLines[0] = helmCrewLines[0].replace(
-              /,Förnamn Efternamn/g,
-              ",HelmName"
-            );
-            helmCrewLines[0] = helmCrewLines[0].replace(
-              /,Sailarena ID/g,
-              ",HelmId"
-            );
-            helmCrewLines[0] = helmCrewLines[0].replace(
-              /,E-post/g,
-              ",HelmEmail"
-            );
-            helmCrewLines[0] = helmCrewLines[0].replace(
-              /,Telefon/g,
-              ",HelmPhone"
-            );
-            helmCrewLines[0] = helmCrewLines[0].replace(
-              /,Födelseår/g,
-              ",HelmAgeGroup"
-            );
-            helmCrewLines[0] = helmCrewLines[0].replace(
-              /,Kontaktperson 1 vid nödfall/g,
-              ",HelmNotes"
-            );
-            helmCrewLines[0] = helmCrewLines[0].replace(/,Klubb/g, ",Club");
-            helmCrewLines[0] = helmCrewLines[0].replace(/,Båttyp/g, ",Group");
-            helmCrewLines[0] = helmCrewLines[0].replace(
-              /,Nationsbeteckning/g,
-              ",Nat"
-            );
-            helmCrewLines[0] = helmCrewLines[0].replace(
-              /,Segelnummer/g,
-              ",SailNo"
-            );
-            helmCrewLines[0] = helmCrewLines[0].replace(
-              /,Tävling\/klass/g,
-              ",Class"
-            );
-            helmCrewLines[0] = helmCrewLines[0].replace(/,Status/g, ",Paid");
-            helmCrewLines[0] = helmCrewLines[0].replace(
-              /,Tävlingslicens/g,
-              ",Fee"
-            );
-            helmCrewLines[0] = helmCrewLines[0].replace(/,Anmäld/g, ",Notes");
+            n++;
+          }
+          // Change from Sailarena to SailWave field names
+          helmCrewLines[0] = helmCrewLines[0].replace(/Anmälan/g, "HelmMemberNo");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Förnamn Efternamn/g, ",HelmName");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Sailarena ID/g, ",HelmId");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,E-post/g, ",HelmEmail");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Telefon/g, ",HelmPhone");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Födelseår/g, ",HelmAgeGroup");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Kontaktperson 1 vid nödfall/g, ",HelmNotes");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Klubb/g, ",Club");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Båttyp/g, ",Group");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Nationsbeteckning/g, ",Nat");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Segelnummer/g, ",SailNo");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Tävling\/klass/g, ",Class");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Status/g, ",Paid");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Tävlingslicens/g, ",Fee");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,Anmäld/g, ",Notes");
 
-            helmCrewLines[0] = helmCrewLines[0].replace(
-              /,crewFörnamn crewEfternamn/g,
-              ",CrewName"
-            );
-            helmCrewLines[0] = helmCrewLines[0].replace(
-              /,crewSailarena ID/g,
-              ",CrewId"
-            );
-            helmCrewLines[0] = helmCrewLines[0].replace(
-              /,crewE-post/g,
-              ",CrewEmail"
-            );
-            helmCrewLines[0] = helmCrewLines[0].replace(
-              /,crewTelefon/g,
-              ",CrewPhone"
-            );
-            helmCrewLines[0] = helmCrewLines[0].replace(
-              /,crewFödelseår/g,
-              ",CrewAgeGroup"
-            );
-            helmCrewLines[0] = helmCrewLines[0].replace(
-              /,crewKontaktperson 1 vid nödfall/g,
-              ",CrewNotes"
-            );
+          helmCrewLines[0] = helmCrewLines[0].replace(/,crewFörnamn crewEfternamn/g, ",CrewName");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,crewSailarena ID/g, ",CrewId");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,crewE-post/g, ",CrewEmail");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,crewTelefon/g, ",CrewPhone");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,crewFödelseår/g, ",CrewAgeGroup");
+          helmCrewLines[0] = helmCrewLines[0].replace(/,crewKontaktperson 1 vid nödfall/g, ",CrewNotes");
 
-            // Fields of interest for SailWave
-            const sailWaveOutputFields = [
-              "HelmMemberNo",
-              "HelmName",
-              "HelmId",
-              "HelmEmail",
-              "HelmPhone",
-              "HelmAgeGroup",
-              "HelmNotes",
-              "Club",
-              "Group",
-              "Nat",
-              "SailNo",
-              "Class",
-              "Paid",
-              "Fee",
-              "Notes",
-              "CrewName",
-              "CrewId",
-              "CrewEmail",
-              "CrewPhone",
-              "CrewAgeGroup",
-              "CrewNotes",
-            ];
+          // Fields of interest for SailWave
+          const sailWaveOutputFields = [
+            "HelmMemberNo",
+            "HelmName",
+            "HelmId",
+            "HelmEmail",
+            "HelmPhone",
+            "HelmAgeGroup",
+            "HelmNotes",
+            "Club",
+            "Group",
+            "Nat",
+            "SailNo",
+            "Class",
+            "Paid",
+            "Fee",
+            "Notes",
+            "CrewName",
+            "CrewId",
+            "CrewEmail",
+            "CrewPhone",
+            "CrewAgeGroup",
+            "CrewNotes",
+          ];
 
-            var sailWaveOutputLines = [];
-            // Build an output line array only containing the fields of intreset for SailWave
-            for (field of sailWaveOutputFields) {
-              fieldIndex = helmCrewLines[0].split(",").indexOf(field);
-              if (fieldIndex >= 0) {
-                for (var line = 0; line < helmCrewLines.length; line++) {
-                  if (field == "HelmMemberNo") {
-                    // Add first field to output lines
-                    sailWaveOutputLines[line] =
-                      helmCrewLines[line].split(",")[fieldIndex];
-                  } else if (field == "HelmEmail" || field == "CrewEmail") {
-                    // All emails should be lowercase
-                    sailWaveOutputLines[line] =
-                      sailWaveOutputLines[line] +
-                      "," +
-                      helmCrewLines[line].split(",")[fieldIndex].toLowerCase();
-                  } else if (field == "Nat" || field == "Club") {
-                    // All clubs 2020 use uppercase letters in their club abbrevation (except BiKSS, BåSS and SökBK)
-                    sailWaveOutputLines[line] =
-                      sailWaveOutputLines[line] +
-                      "," +
-                      helmCrewLines[line].split(",")[fieldIndex].toUpperCase();
-                  } else {
-                    // All other fields
-                    sailWaveOutputLines[line] =
-                      sailWaveOutputLines[line] +
-                      "," +
-                      helmCrewLines[line].split(",")[fieldIndex];
-                  }
+          var sailWaveOutputLines = [];
+          // Build an output line array only containing the fields of intreset for SailWave
+          for (field of sailWaveOutputFields) {
+            fieldIndex = helmCrewLines[0].split(",").indexOf(field);
+            if (fieldIndex >= 0) {
+              for (var line = 0; line < helmCrewLines.length; line++) {
+                if (field == "HelmMemberNo") {
+                  // Add first field to output lines
+                  sailWaveOutputLines[line] = helmCrewLines[line].split(",")[fieldIndex];
+                } else if (field == "HelmEmail" || field == "CrewEmail") {
+                  // All emails should be lowercase
+                  sailWaveOutputLines[line] =
+                    sailWaveOutputLines[line] + "," + helmCrewLines[line].split(",")[fieldIndex].toLowerCase();
+                } else if (field == "Nat" || field == "Club") {
+                  // All clubs 2020 use uppercase letters in their club abbrevation (except BiKSS, BåSS and SökBK)
+                  sailWaveOutputLines[line] =
+                    sailWaveOutputLines[line] + "," + helmCrewLines[line].split(",")[fieldIndex].toUpperCase();
+                } else {
+                  // All other fields
+                  sailWaveOutputLines[line] =
+                    sailWaveOutputLines[line] + "," + helmCrewLines[line].split(",")[fieldIndex];
                 }
               }
             }
-            // Join all lines to one string with new lines.
-            sailWaveUtfOutput = sailWaveOutputLines.join("\n");
-            var sailWaveOutput = "data:text/csv;charset=utf-8,%EF%BB%BF" + encodeURI(sailWaveUtfOutput);
- //           sailWaveOutput = decodeURIComponent(sailWaveUtfOutput)
- //var sailWaveOutputUint8 = new Uint8Array();
- //sailWaveOutputUint8 = unicodeToWin1252(sailWaveUtfOutput);
+          }
+          // Join all lines to one string with new lines.
+          sailWaveUtfOutput = sailWaveOutputLines.join("\n");
+          var sailWaveUtfOutputCharArray = sailWaveUtfOutput.split(/(?!$)/u);
 
-            //          sailWaveOutput = sailWaveOutput.normalize('NFKD');
+          var sailWaveOutputUint8 = new Uint8Array(sailWaveUtfOutputCharArray.length);
 
-            var c = document.createElement("a");
-            c.download = "sailwave-import.csv";
+          for (var i = 0; i < sailWaveUtfOutputCharArray.length; i++) {
+            var c = sailWaveUtfOutput.charCodeAt(i);
+            if (c in DMap) {
+              sailWaveOutputUint8[i] = DMap[c];
+            } else {
+              if (c > 255) {
+                console.log("Character " + c + "not recognised in cp1252!");
+                sailWaveOutputUint8[i] = 30;
+              } else {
+                sailWaveOutputUint8[i] = c;
+              }
+            }
+          }
 
-            var t = new Blob([sailWaveOutput], {
-              type: "text/csv",
-            });
-            c.href = window.URL.createObjectURL(t);
-            c.click();
-          };
-          //        fr.readAsText(this.files[0]);
-          fr.readAsText(this.files[0], "ISO-8859-1");
-        });
+          //           sailWaveOutput = decodeURIComponent(sailWaveUtfOutput)
+          //var sailWaveOutputUint8 = new Uint8Array();
+          //sailWaveOutputUint8 = unicodeToWin1252(sailWaveUtfOutput);
+
+          //          sailWaveOutput = sailWaveOutput.normalize('NFKD');
+
+          var c = document.createElement("a");
+          c.download = "sailwave-import.csv";
+
+          var t = new Blob([sailWaveOutputUint8], {
+            type: "text/csv",
+          });
+          c.href = window.URL.createObjectURL(t);
+          c.click();
+        };
+        //        fr.readAsText(this.files[0]);
+        fr.readAsText(this.files[0], "ISO-8859-1");
+      });
     </script>
   </body>
 </html>
